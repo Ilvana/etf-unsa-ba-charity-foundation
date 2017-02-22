@@ -4,10 +4,11 @@ import org.etf.unsa.ba.charityfoundation.entities.Comment;
 import org.etf.unsa.ba.charityfoundation.repositories.CommentRepository;
 import org.etf.unsa.ba.charityfoundation.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
@@ -26,5 +27,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void save(Comment comment) {
         commentRepository.save(comment);
+    }
+
+    @Override
+    public void delete(Long id) {
+        commentRepository.delete(id);
     }
 }

@@ -1,14 +1,16 @@
 package org.etf.unsa.ba.charityfoundation.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "announcements")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Announcement implements Serializable {
 
     @Id
@@ -25,15 +27,19 @@ public class Announcement implements Serializable {
 
     private String picture;
 
-    public Announcement(String text, Date date, String telephone, Integer account, String picture) {
+    @OneToMany(mappedBy = "announcement", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Comment> comments;
+
+    public Announcement() {
+    }
+
+    public Announcement(String text, Date date, String telephone, Integer account, String picture, List<Comment> comments) {
         this.text = text;
         this.date = date;
         this.telephone = telephone;
         this.account = account;
         this.picture = picture;
-    }
-
-    public Announcement() {
+        this.comments = comments;
     }
 
     public Long getId() {
@@ -82,5 +88,26 @@ public class Announcement implements Serializable {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "Announcement{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", date=" + date +
+                ", telephone='" + telephone + '\'' +
+                ", account=" + account +
+                ", picture='" + picture + '\'' +
+                ", comments=" + comments +
+                '}';
     }
 }

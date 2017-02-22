@@ -1,15 +1,18 @@
 package org.etf.unsa.ba.charityfoundation.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+
 @Entity
 @Table(name = "comment")
-public class Comment {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Comment implements Serializable{
 
     @Id
     @GeneratedValue
@@ -21,32 +24,30 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonBackReference
-    private User user1;
+    @JsonIgnore
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "announcement_id")
+    @JsonIgnore
+    private Announcement announcement;
 
     public Comment() {
     }
 
-    public Comment(String text, Date date, User user1) {
+    public Comment(String text, Date date, User user, Announcement announcement) {
         this.text = text;
         this.date = date;
-        this.user1 = user1;
-    }
-
-    public User getUser1() {
-        return user1;
-    }
-
-    public void setUser1(User user1) {
-        this.user1 = user1;
+        this.user = user;
+        this.announcement = announcement;
     }
 
     public User getUser() {
-        return user1;
+        return user;
     }
 
     public void setUser(User user) {
-        this.user1 = user;
+        this.user = user;
     }
 
     public Long getId() {
@@ -71,5 +72,24 @@ public class Comment {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Announcement getAnnouncement() {
+        return announcement;
+    }
+
+    public void setAnnouncement(Announcement announcement) {
+        this.announcement = announcement;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", date=" + date +
+                ", user=" + user +
+                ", announcement=" + announcement +
+                '}';
     }
 }
