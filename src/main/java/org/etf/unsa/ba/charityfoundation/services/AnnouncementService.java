@@ -8,4 +8,5 @@ public interface AnnouncementService {
     List<Announcement> findAll();
     Announcement findById(Long id);
     void save(Announcement announcements);
+    void delete(Long id);
 }

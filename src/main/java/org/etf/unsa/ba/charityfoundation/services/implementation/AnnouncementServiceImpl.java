@@ -28,4 +28,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public void save(Announcement announcements) {
         announcementsRepository.save(announcements);
     }
+
+    @Override
+    public void delete(Long id) {
+        announcementsRepository.delete(id);
+    }
+
 }

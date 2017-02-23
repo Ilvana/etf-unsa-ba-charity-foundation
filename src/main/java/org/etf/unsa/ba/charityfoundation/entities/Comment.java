@@ -2,12 +2,12 @@ package org.etf.unsa.ba.charityfoundation.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
 
 @Entity
 @Table(name = "comment")
@@ -24,12 +24,10 @@ public class Comment implements Serializable{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "announcement_id")
-    @JsonIgnore
     private Announcement announcement;
 
     public Comment() {
@@ -40,14 +38,6 @@ public class Comment implements Serializable{
         this.date = date;
         this.user = user;
         this.announcement = announcement;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Long getId() {
@@ -74,10 +64,22 @@ public class Comment implements Serializable{
         this.date = date;
     }
 
+    @JsonIgnore
+    public User getUser() {
+        return user;
+    }
+
+    @JsonProperty
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @JsonIgnore
     public Announcement getAnnouncement() {
         return announcement;
     }
 
+    @JsonProperty
     public void setAnnouncement(Announcement announcement) {
         this.announcement = announcement;
     }
