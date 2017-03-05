@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/announcement")
+@RequestMapping(value = "/api/announcement")
 public class AnnouncementController {
 
     public static Logger LOGGER = LoggerFactory.getLogger(Announcement.class);
