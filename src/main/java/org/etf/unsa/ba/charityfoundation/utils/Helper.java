@@ -13,6 +13,7 @@ public class Helper {
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class",
                 "javax.net.ssl.SSLSocketFactory");
+        System.setProperty("javax.net.ssl.trustStore", "secure.ts");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
 

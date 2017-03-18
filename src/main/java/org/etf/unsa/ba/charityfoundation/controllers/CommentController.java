@@ -1,7 +1,11 @@
 package org.etf.unsa.ba.charityfoundation.controllers;
 
+import org.etf.unsa.ba.charityfoundation.entities.Announcement;
 import org.etf.unsa.ba.charityfoundation.entities.Comment;
+import org.etf.unsa.ba.charityfoundation.entities.User;
+import org.etf.unsa.ba.charityfoundation.services.AnnouncementService;
 import org.etf.unsa.ba.charityfoundation.services.CommentService;
+import org.etf.unsa.ba.charityfoundation.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +13,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/comment")
+@RequestMapping(value = "/api/comment")
 public class CommentController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommentController.class);
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    AnnouncementService announcementService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getAll() {
@@ -46,6 +57,11 @@ public class CommentController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity save(@RequestBody Comment comment) {
         try {
+            Announcement announcement = announcementService.findById(1L);
+            User user = userService.findById(2L);
+            comment.setUser(user);
+            comment.setAnnouncement(announcement);
+            comment.setDate(new Date());
             commentService.save(comment);
             LOGGER.info(String.format("Successfully saved comment."));
             return new ResponseEntity(comment, HttpStatus.OK);
