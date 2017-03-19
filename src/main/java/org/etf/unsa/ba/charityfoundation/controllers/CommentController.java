@@ -57,8 +57,8 @@ public class CommentController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity save(@RequestBody Comment comment) {
         try {
-            Announcement announcement = announcementService.findById(1L);
-            User user = userService.findById(2L);
+            Announcement announcement = announcementService.findById(8L);
+            User user = userService.findById(3L);
             comment.setUser(user);
             comment.setAnnouncement(announcement);
             comment.setDate(new Date());
