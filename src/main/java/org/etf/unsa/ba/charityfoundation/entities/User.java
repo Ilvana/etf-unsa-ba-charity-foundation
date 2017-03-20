@@ -31,6 +31,8 @@ public class User implements Serializable {
 
     private String email;
 
+    private Integer registered;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments;
 
@@ -38,13 +40,14 @@ public class User implements Serializable {
 
     }
 
-    public User(String username, String password, String role, Integer enabled, String telephone, String email, List<Comment> comments) {
+    public User(String username, String password, String role, Integer enabled, String telephone, String email, Integer registered, List<Comment> comments) {
         this.username = username;
         this.password = password;
         this.role = role;
         this.enabled = enabled;
         this.telephone = telephone;
         this.email = email;
+        this.registered = registered;
         this.comments = comments;
     }
 
@@ -104,6 +107,14 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    public Integer getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(Integer registered) {
+        this.registered = registered;
+    }
+
     public List<Comment> getComments() {
         return comments;
     }
@@ -122,6 +133,7 @@ public class User implements Serializable {
                 ", enabled=" + enabled +
                 ", telephone='" + telephone + '\'' +
                 ", email='" + email + '\'' +
+                ", registered=" + registered +
                 ", comments=" + comments +
                 '}';
     }

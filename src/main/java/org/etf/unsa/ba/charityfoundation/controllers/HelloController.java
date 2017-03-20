@@ -1,7 +1,7 @@
 package org.etf.unsa.ba.charityfoundation.controllers;
 
 import org.etf.unsa.ba.charityfoundation.utils.Contact;
-import org.etf.unsa.ba.charityfoundation.utils.Helper;
+import org.etf.unsa.ba.charityfoundation.utils.MailHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ public class HelloController {
     @RequestMapping(value = "/api/contact", method = RequestMethod.POST)
     public void sendEmail(@RequestBody Contact contact) {
         try {
-            Helper.sendMail(contact.getTo(), contact.getMessage());
+            MailHelper.sendMail(contact.getTo(), contact.getMessage());
             LOGGER.info("Email has been sent successfully.");
         } catch (Exception e) {
             LOGGER.error(e.getMessage());

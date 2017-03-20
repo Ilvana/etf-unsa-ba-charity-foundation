@@ -5,6 +5,7 @@ import org.etf.unsa.ba.charityfoundation.entities.Comment;
 import org.etf.unsa.ba.charityfoundation.entities.User;
 import org.etf.unsa.ba.charityfoundation.services.AnnouncementService;
 import org.etf.unsa.ba.charityfoundation.services.UserService;
+import org.etf.unsa.ba.charityfoundation.utils.SmsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.List;
 public class AnnouncementController {
 
     public static Logger LOGGER = LoggerFactory.getLogger(Announcement.class);
+
     @Autowired
     AnnouncementService announcementService;
 
@@ -55,6 +57,12 @@ public class AnnouncementController {
     public ResponseEntity save(@RequestBody Announcement announcement) {
         try {
             announcement.setComments(new ArrayList<Comment>());
+
+            List<User> users = userService.findAllRegisteredUsers();
+            for (User user : users) {
+                SmsHelper.sendSms(user.getTelephone(), "New announcement!");
+            }
+
             announcementService.save(announcement);
             LOGGER.info(String.format("Successfully saved announcement."));
             return new ResponseEntity(announcement, HttpStatus.OK);

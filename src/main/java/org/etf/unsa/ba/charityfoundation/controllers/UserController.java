@@ -45,11 +45,27 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    public ResponseEntity register(@RequestBody User user) {
+        try {
+            user.setRole("ROLE_USER");
+            user.setEnabled(1);
+            user.setRegistered(1);
+            user.setComments(new ArrayList<Comment>());
+            userService.save(user);
+            LOGGER.info(String.format("Successfully registered user."));
+            return new ResponseEntity(user, HttpStatus.OK);
+        } catch (Exception e) {
+            LOGGER.error(String.format("Failed during registration of user."));
+            return new ResponseEntity(e.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity save(@RequestBody User user) {
         try {
             user.setRole("ROLE_USER");
             user.setEnabled(1);
+            user.setRegistered(0);
             user.setComments(new ArrayList<Comment>());
             userService.save(user);
             LOGGER.info(String.format("Successfully saved user."));
