@@ -27,6 +27,8 @@ public class Announcement implements Serializable {
 
     private String picture;
 
+    private String title;
+
     @OneToMany(mappedBy = "announcement", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Comment> comments;
 
@@ -98,6 +100,14 @@ public class Announcement implements Serializable {
         this.comments = comments;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return "Announcement{" +
@@ -107,6 +117,7 @@ public class Announcement implements Serializable {
                 ", telephone='" + telephone + '\'' +
                 ", account=" + account +
                 ", picture='" + picture + '\'' +
+                ", title='" + title + '\'' +
                 ", comments=" + comments +
                 '}';
     }

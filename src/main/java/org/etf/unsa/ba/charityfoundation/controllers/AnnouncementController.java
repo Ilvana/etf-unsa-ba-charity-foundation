@@ -102,7 +102,7 @@ public class AnnouncementController {
             announcement.setAccount(newAnnouncement.getAccount());
             announcement.setPicture(newAnnouncement.getPicture());
             announcement.setTelephone(newAnnouncement.getTelephone());
-
+            announcement.setTitle(newAnnouncement.getTitle());
             announcementService.save(announcement);
             LOGGER.info("Successfully updated announcement with id: " + id.toString());
             return new ResponseEntity(newAnnouncement, HttpStatus.OK);
