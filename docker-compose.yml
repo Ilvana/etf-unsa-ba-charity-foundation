@@ -1,0 +1,23 @@
+version: '2'
+services:
+  backend:
+    build: .
+    ports:
+      - 9090:8080
+    depends_on:
+      - mysql
+  frontend:
+    build: ../etf-unsa-ba-charity-foundation-web
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=ilvana
+      - MYSQL_USER=ilvana
+      - MYSQL_PASSWORD=ilvana
+      - MYSQL_DATABASE=charityfoundation
