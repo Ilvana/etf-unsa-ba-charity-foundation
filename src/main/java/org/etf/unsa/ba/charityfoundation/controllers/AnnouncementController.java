@@ -75,7 +75,7 @@ public class AnnouncementController {
     @RequestMapping(value = "/{id}/comment", method = RequestMethod.POST)
     public ResponseEntity addComment(@PathVariable Long id, @RequestBody Comment comment) {
         try {
-            User user = userService.findById(5L);
+            User user = userService.findById(comment.getUser().getId());
             Announcement announcement = announcementService.findById(id);
 
             comment.setAnnouncement(announcement);
