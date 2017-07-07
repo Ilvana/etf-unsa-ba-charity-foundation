@@ -63,7 +63,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity save(@RequestBody User user) {
         try {
-            user.setRole("ROLE_USER");
+            user.setRole("ROLE_ADMIN");
             user.setEnabled(1);
             user.setRegistered(0);
             user.setComments(new ArrayList<Comment>());
